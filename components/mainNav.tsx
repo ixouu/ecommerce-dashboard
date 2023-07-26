@@ -19,6 +19,11 @@ const MainNav = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => 
             label: 'Réglages',
             active : pathname === `/${params.storeId}/settings`
         },
+        {
+            href : `/${params.storeId}/billboards`,
+            label: 'Bannières',
+            active : pathname === `/${params.storeId}/billboard`
+        },
     ];
     return (
         <nav className={cn('flex items-center space-x-4 lg:space-x-6', className)}>
