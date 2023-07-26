@@ -1,23 +1,30 @@
 "use client";
 
 import * as z from "zod";
-import { use, useState } from "react";
-import { Store } from "@prisma/client";
-import { Trash } from "lucide-react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { Store } from "@prisma/client";
+import { useForm } from "react-hook-form";
+import { useOrigin } from "@/hooks/use-origin";
+import axios from "axios";
 import { toast } from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { 
+  Form, 
+  FormControl, 
+  FormField, 
+  FormItem, 
+  FormLabel, 
+  FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
-import ApiAlert from "@/components/ui/api-alert";
+import { ApiAlert } from "@/components/ui/api-alert";
 
 interface SettingsFormProps {
 	initialData: Store;
@@ -38,6 +45,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
   const params = useParams();
   const router = useRouter();
+  const origin = useOrigin();
   
   const form = useForm<SettingsFormValues>({
     resolver : zodResolver(formSchema),

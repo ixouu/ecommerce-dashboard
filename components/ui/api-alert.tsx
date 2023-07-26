@@ -21,7 +21,7 @@ const variantMap: Record<ApiAlertProps["variant"], BadgeProps["variant"]> = {
 	public: "secondary",
 	admin: "destructive",
 };
-const ApiAlert: React.FC<ApiAlertProps> = ({
+export const ApiAlert: React.FC<ApiAlertProps> = ({
 	title,
 	description,
 	variant = "public",
@@ -52,5 +52,3 @@ const ApiAlert: React.FC<ApiAlertProps> = ({
 		</Alert>
 	);
 };
-
-export default ApiAlert;
