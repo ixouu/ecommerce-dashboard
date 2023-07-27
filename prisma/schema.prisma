@@ -1,6 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// PRISMA STEPS TO FOLLOW
+// 1. Create a new model
+// 2. generate store `npx prisma generate`
+// 3. push to db planetscale : `npx prisma db push`
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,6 +21,7 @@ model Store {
   userId String
   billboards Billboard[] @relation("StoreToBillboard")
   categories Category[] @relation("StoreCategory")
+  sizes Size[] @relation("StoreToSize")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -36,7 +42,7 @@ model Billboard {
 model Category {
   id String @id @default(uuid())
   storeId String
-  store Store @relation("StoreCategory", fields: [storeId], references: [id] )
+  store Store @relation("StoreCategory", fields: [storeId], references: [id])
   billboardId String
   billboard Billboard @relation(fields : [billboardId], references: [id])
   name String
@@ -45,4 +51,16 @@ model Category {
 
   @@index([storeId])
   @@index([billboardId])
+}
+
+model Size {
+  id String @id @default(uuid())
+  storeId String
+  store Store @relation("StoreToSize", fields: [storeId], references: [id])
+  name String
+  value String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([storeId])
 }
