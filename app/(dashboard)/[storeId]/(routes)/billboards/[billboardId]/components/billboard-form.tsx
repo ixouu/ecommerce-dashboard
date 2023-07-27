@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Billboard } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { useOrigin } from "@/hooks/use-origin";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -45,7 +44,6 @@ const BillboardsForm: React.FC<BillboardsFormProps> = ({ initialData }) => {
 
 	const params = useParams();
 	const router = useRouter();
-	const origin = useOrigin();
 
 	const title = initialData ? "Modifier la bannière" : "Créer une bannière";
 	const description = initialData
@@ -71,6 +69,7 @@ const BillboardsForm: React.FC<BillboardsFormProps> = ({ initialData }) => {
 			await axios.post(`/api/${params.storeId}/billboards`, data);
 			}
 			router.refresh();
+			router.push(`/${params.storeId}/billboards`);
 			toast.success(toastMessage);
 		} catch (error) {
 			toast.error("Something went wrong");
@@ -84,7 +83,7 @@ const BillboardsForm: React.FC<BillboardsFormProps> = ({ initialData }) => {
 			setLoading(true);
 			await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
 			router.refresh();
-			router.push("/");
+			router.push(`/${params.storeId}/billboards`);
 			toast.success('Bannière supprimée');
 		} catch (error) {
 			toast.error(
