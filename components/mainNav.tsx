@@ -20,6 +20,11 @@ const MainNav = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => 
             active : pathname === `/${params.storeId}/billboards`
         },
         {
+            href : `/${params.storeId}/categories`,
+            label: 'Catégories',
+            active : pathname === `/${params.storeId}/categories`
+        },
+        {
             href : `/${params.storeId}/sizes`,
             label: 'Tailles',
             active : pathname === `/${params.storeId}/sizes`
@@ -28,6 +33,11 @@ const MainNav = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => 
             href : `/${params.storeId}/colors`,
             label: 'Couleurs',
             active : pathname === `/${params.storeId}/colors`
+        },
+        {
+            href : `/${params.storeId}/products`,
+            label: 'Produits',
+            active : pathname === `/${params.storeId}/products`
         },
         {
             href : `/${params.storeId}/settings`,

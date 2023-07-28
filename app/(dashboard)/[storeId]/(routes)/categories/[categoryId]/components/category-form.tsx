@@ -24,11 +24,17 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 interface CategoryFormProps {
 	initialData: Category | null;
-	billboards : Billboard[];
+	billboards: Billboard[];
 }
 
 type CategoriesFormValues = z.infer<typeof formSchema>;
@@ -38,7 +44,10 @@ const formSchema = z.object({
 	billboardId: z.string().min(1),
 });
 
-const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboards }) => {
+const CategoryForm: React.FC<CategoryFormProps> = ({
+	initialData,
+	billboards,
+}) => {
 	// control alert modal
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -65,9 +74,12 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboards }) 
 		try {
 			setLoading(true);
 			if (initialData) {
-				await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
+				await axios.patch(
+					`/api/${params.storeId}/categories/${params.categoryId}`,
+					data
+				);
 			} else {
-			await axios.post(`/api/${params.storeId}/categories`, data);
+				await axios.post(`/api/${params.storeId}/categories`, data);
 			}
 			router.refresh();
 			router.push(`/${params.storeId}/categories`);
@@ -82,10 +94,12 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboards }) 
 	const onDelete = async () => {
 		try {
 			setLoading(true);
-			await axios.delete(`/api/${params.storeId}/categories/${params.categoryId}`);
+			await axios.delete(
+				`/api/${params.storeId}/categories/${params.categoryId}`
+			);
 			router.refresh();
 			router.push(`/${params.storeId}/categories`);
-			toast.success('catégorie supprimée');
+			toast.success("catégorie supprimée");
 		} catch (error) {
 			toast.error(
 				"Assurrez-vous d'avoir retiré tous les produits de cette catégorie"
@@ -126,7 +140,6 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboards }) 
 				<form
 					onSubmit={form.handleSubmit(onSumbit)}
 					className='space-y-8 w-full'>
-					
 					<div className='grid grid-cols-3 gap-8'>
 						<FormField
 							control={form.control}
@@ -145,36 +158,34 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboards }) 
 								</FormItem>
 							)}
 						/>
-							<FormField
+						<FormField
 							control={form.control}
 							name='billboardId'
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Bannière</FormLabel>
-									<Select 
+									<Select
 										disabled={loading}
 										onValueChange={field.onChange}
 										value={field.value}
-										defaultValue={field.value}
-									>
-											<FormControl>
-												<SelectTrigger>
-													<SelectValue
-														defaultValue={field.value}
-														placeholder="Sélectionner une bannière"
-													/>
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												{billboards.map((billboard) => (
-													<SelectItem
-														key={billboard.id}
-														value={billboard.id}
-													>
-														{billboard.label}
-													</SelectItem>
-												))}
-											</SelectContent>
+										defaultValue={field.value}>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue
+													defaultValue={field.value}
+													placeholder='Sélectionner une bannière'
+												/>
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{billboards.map((billboard) => (
+												<SelectItem
+													key={billboard.id}
+													value={billboard.id}>
+													{billboard.label}
+												</SelectItem>
+											))}
+										</SelectContent>
 									</Select>
 									<FormMessage />
 								</FormItem>
