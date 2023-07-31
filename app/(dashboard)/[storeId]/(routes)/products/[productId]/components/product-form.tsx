@@ -174,25 +174,11 @@ const ProductsForm: React.FC<ProductsFormProps> = ({
 							<FormItem>
 								<FormLabel>Images</FormLabel>
 								<FormControl>
-									<Imageupload
-										value={field.value.map(
-											(image) => image.url
-										)}
-										disabled={loading}
-										onChange={(url) =>
-											field.onChange([
-												...field.value,
-												{ url },
-											])
-										}
-										onRemove={(url) =>
-											field.onChange([
-												...field.value.filter(
-													(currentImage) =>
-														currentImage.url !== url
-												),
-											])
-										}
+									<Imageupload 
+										value={field.value.map((image) => image.url)} 
+										disabled={loading} 
+										onChange={(url) => field.onChange([...field.value, { url }])}
+										onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
 									/>
 								</FormControl>
 								<FormMessage />

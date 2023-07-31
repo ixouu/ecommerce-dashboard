@@ -36,7 +36,7 @@ const CellAction : React.FC<CellActionProps> = ({
 	const onDelete = async () => {
 		try {
 			setLoading(true);
-			await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+			await axios.delete(`/api/${params.storeId}/products/${data.id}`);
 			router.refresh();
 			toast.success('Bannière supprimée');
 		} catch (error) {
@@ -72,7 +72,7 @@ const CellAction : React.FC<CellActionProps> = ({
         <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={
-                () => router.push(`/${params.storeId}/billboards/${data.id}`)
+                () => router.push(`/${params.storeId}/products/${data.id}`)
             }>
                 <Edit className="mr-2 h-4 w-4"/>Modifier
             </DropdownMenuItem>
